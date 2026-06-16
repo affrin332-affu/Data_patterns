@@ -1,0 +1,36 @@
+import java.time.LocalDate;
+
+public class SimpleDateCheck {
+    public static void main(String[] args) {
+        LocalDate d1 = LocalDate.of(2011, 6, 6);
+        LocalDate d2 = LocalDate.of(2011, 7, 6);
+        checkGaps(d1, d2);
+
+        LocalDate d3 = LocalDate.of(2010, 12, 15);
+        LocalDate d4 = LocalDate.of(2011, 1, 15);
+        checkGaps(d3, d4);
+
+        LocalDate d5 = LocalDate.of(2011, 3, 1);
+        LocalDate d6 = LocalDate.of(2011, 3, 25);
+        checkGaps(d5, d6);
+    }
+
+    public static void checkGaps(LocalDate d1, LocalDate d2) {
+        int totalMonths1 = (d1.getYear() * 12) + d1.getMonthValue();
+        int totalMonths2 = (d2.getYear() * 12) + d2.getMonthValue();
+        int monthDiff = Math.abs(totalMonths1 - totalMonths2);
+
+        int day1 = d1.getDayOfMonth();
+        int day2 = d2.getDayOfMonth();
+
+        System.out.print("Comparing " + d1 + " and " + d2 + " -> ");
+
+        if (monthDiff == 1 && day1 == day2) {
+            System.out.println("Exactly 1 month apart");
+        } else if (monthDiff == 0 || (monthDiff == 1 && day1 > day2)) {
+            System.out.println("Less than 1 month apart");
+        } else {
+            System.out.println("More than 1 month apart");
+        }
+    }
+}
