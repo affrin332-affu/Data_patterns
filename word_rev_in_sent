@@ -1,0 +1,24 @@
+public class ReverseWords {
+    public static void main(String[] args) {
+        String input = "have a nice day";
+        String result = reverseSentence(input);
+        System.out.println(result);
+    }
+
+    public static String reverseSentence(String str) {
+        // Split the string into words using space as a delimiter
+        String[] words = str.split(" ");
+        StringBuilder reversed = new StringBuilder();
+
+        // Loop through the array backwards
+        for (int i = words.length - 1; i >= 0; i--) {
+            reversed.append(words[i]);
+            
+            // Add a space between words, but not after the last word
+            if (i > 0) {
+                reversed.append(" ");
+            }
+        }
+        return reversed.toString();
+    }
+}
