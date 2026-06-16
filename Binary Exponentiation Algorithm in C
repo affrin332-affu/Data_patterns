@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+double power(double x, unsigned int n, int *mult_count) {
+    double result = 1.0;
+    double base = x;
+    *mult_count = 0;
+    if (n == 0) {
+        return 1.0;
+    }
+
+    while (n > 0) {
+        
+        if (n % 2 == 1) {
+            result = result * base;
+            (*mult_count)++;
+        }
+        n = n / 2;
+        if (n > 0) {
+            base = base * base;
+            (*mult_count)++;
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    double x = 2.5;
+    unsigned int n = 13;
+    int multiplications = 0;
+
+    double res = power(x, n, &multiplications);
+
+    printf("Result of %f^%u = %f\n", x, n, res);
+    printf("Total multiplications used: %d\n", multiplications);
+
+    return 0;
+}
