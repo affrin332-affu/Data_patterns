@@ -1,0 +1,65 @@
+import java.util.Scanner;
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    
+    TreeNode(int val) { 
+        this.val = val; 
+    }
+}
+
+public class InteractiveTreeMerge {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("=== Create First Tree ===");
+        TreeNode tree1 = createTree(scanner);
+        
+        System.out.println("\n=== Create Second Tree ===");
+        TreeNode tree2 = createTree(scanner);
+        TreeNode mergedTree = mergeTrees(tree1, tree2);
+        System.out.println("\n=== Merged Tree (In-Order Traversal) ===");
+        printInOrder(mergedTree);
+        System.out.println();
+        
+        scanner.close();
+    }
+    public static TreeNode createTree(Scanner scanner) {
+        System.out.print("Enter node value (or type -1 for no node/null): ");
+        int value = scanner.nextInt();
+        if (value == -1) {
+            return null;
+        }
+        
+        TreeNode node = new TreeNode(value);
+        
+        System.out.println("Entering LEFT child of node " + value + ":");
+        node.left = createTree(scanner);
+        
+        System.out.println("Entering RIGHT child of node " + value + ":");
+        node.right = createTree(scanner);
+        
+        return node;
+    }
+
+    public static TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if (root1 == null) return root2;
+        if (root2 == null) return root1;
+        
+        root1.val += root2.val;
+        root1.left = mergeTrees(root1.left, root2.left);
+        root1.right = mergeTrees(root1.right, root2.right);
+        
+        return root1;
+    }
+
+    public static void printInOrder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        printInOrder(root.left);
+        System.out.print(root.val + " ");
+        printInOrder(root.right);
+    }
+}
