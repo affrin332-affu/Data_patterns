@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class NextPrime {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter a number X: ");
+        if (scanner.hasNextLong()) {
+            long x = scanner.nextLong();
+            System.out.println("The smallest prime greater than " + x + " is: " + findNextPrime(x));
+        }
+    }
+
+    public static long findNextPrime(long x) {
+        long num = x + 1;
+        if (num <= 2) {
+            return 2;
+        }
+        if (num % 2 == 0) {
+            num++;
+        }
+        
+        // Check odd numbers sequentially
+        while (true) {
+            if (isPrime(num)) {
+                return num;
+            }
+            num += 2;
+        }
+    }
+    public static boolean isPrime(long n) {
+        if (n <= 1) return false;
+        if (n <= 3) return true;
+        if (n % 2 == 0 || n % 3 == 0) return false;
+        for (long i = 5; i * i <= n; i += 6) {
+            if (n % i == 0 || n % (i + 2) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
